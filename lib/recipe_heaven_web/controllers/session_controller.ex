@@ -1,6 +1,7 @@
 defmodule RecipeHeavenWeb.SessionController do
   use RecipeHeavenWeb, :controller
   alias RecipeHeaven.User
+  alias RecipeHeaven.Auth
 
   def new(conn, _params) do
     render(conn, "new.html")
@@ -10,7 +11,7 @@ defmodule RecipeHeavenWeb.SessionController do
     case User.find_and_confirm_password(login_params) do 
       {:ok, user} ->
         conn
-        |> RecipeHeaven.Guardian.Plug.sign_in(user)
+        |> Auth.Guardian.Plug.sign_in(user)
         |> put_flash(:info, "You are signed in now!")
         |> redirect(to: user_path(conn, :show, user.id))
       {:error, _reason} ->
@@ -23,7 +24,7 @@ defmodule RecipeHeavenWeb.SessionController do
 
   def delete(conn, _) do
     conn
-    |> RecipeHeaven.Guardian.Plug.sign_out()
+    |> Auth.Guardian.Plug.sign_out()
     |> put_flash(:info, "You're singed out now!")
     |> redirect(to: "/signin") 
   end

@@ -1,4 +1,4 @@
-defmodule RecipeHeaven.Guardian do
+defmodule RecipeHeaven.Auth.Guardian do
   use Guardian, otp_app: :recipe_heaven
   alias RecipeHeaven.{Repo, User}
 

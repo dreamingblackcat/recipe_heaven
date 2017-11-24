@@ -9,6 +9,14 @@ defmodule RecipeHeavenWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_auth do
+    plug :fetch_session
+    plug Guardian.Plug.Pipeline, module: RecipeHeaven.Auth.Guardian,
+      error_handler: RecipeHeaven.Auth.AuthErrorHandler
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -21,11 +29,14 @@ defmodule RecipeHeavenWeb.Router do
     get "/signup", RegistrationController, :new
     post "/signup", RegistrationController, :create, as: :registration
 
-    resources "/users", UserController, only: [:show]
+    scope "/users" do
+      pipe_through :browser_auth # Use the default browser stack
+      resources "/", UserController, only: [:show]
+    end
 
     get "/signin", SessionController, :new 
     post "/signin", SessionController, :create
-    delete "/signin", SessionController, :delete
+    delete "/signout/:id", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.

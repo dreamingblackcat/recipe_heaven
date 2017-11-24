@@ -22,7 +22,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :recipe_heaven, RecipeHeaven.Guardian,
+config :recipe_heaven, RecipeHeaven.Auth.Guardian,
   issuer: "recipe_heaven",
   secret_key: "rk/gqkHeggqTPN2VfJgqv4BU3017LWzcwbilnFJFcqgvC4lm9sYK7hMpC2f6BHba"
   #allowed_algos: ["HS512"], # optional
