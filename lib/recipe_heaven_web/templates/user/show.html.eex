@@ -1,0 +1,1 @@
+<h3> Hello, Welcome Chef <%= @user.name %> </h3>

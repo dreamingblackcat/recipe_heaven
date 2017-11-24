@@ -1,0 +1,42 @@
+<h1> Registration </h1>
+
+<%= form_for @changeset, registration_path(@conn, :create), fn f -> %>
+ <fieldset>
+    <div id="legend">
+      <legend class="">Register</legend>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Username</label>
+      <div class="controls">
+	<%= text_input f, :name, placeholder: "name", class: "input-xlarge" %>
+        <p class="help-block">Name can contain any letters or numbers, without spaces</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+	<%= email_input f, :email, placeholder: "email", class: "input-xlarge" %>
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+	<%= password_input f, :password, placeholder: "password", class: "input-xlarge" %>
+        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+        <p class="help-block">Password should be at least 3 characters</p>
+      </div>
+    </div>
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+	<%= submit "Register", class: "btn btn-success" %>
+      </div>
+    </div>
+  </fieldset>   
+<% end %>

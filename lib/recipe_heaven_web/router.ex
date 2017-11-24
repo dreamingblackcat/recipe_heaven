@@ -17,6 +17,11 @@ defmodule RecipeHeavenWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    
+    get "/signup", RegistrationController, :new
+    post "/signup", RegistrationController, :create, as: :registration
+
+    resources "/users", UserController, only: [:show]
   end
 
   # Other scopes may use custom stacks.
