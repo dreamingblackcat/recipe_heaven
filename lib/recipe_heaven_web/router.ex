@@ -22,6 +22,10 @@ defmodule RecipeHeavenWeb.Router do
     post "/signup", RegistrationController, :create, as: :registration
 
     resources "/users", UserController, only: [:show]
+
+    get "/signin", SessionController, :new 
+    post "/signin", SessionController, :create
+    delete "/signin", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.

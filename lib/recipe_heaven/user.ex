@@ -1,8 +1,9 @@
 defmodule RecipeHeaven.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias RecipeHeaven.User
+  alias RecipeHeaven.{Repo, User}
 
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   schema "users" do
     field :email, :string
@@ -28,6 +29,21 @@ defmodule RecipeHeaven.User do
     |> validate_required([:password])
     |> validate_length(:password, min: 3, max: 60)
     |> hash_password
+  end
+
+  def find_and_confirm_password(%{"email" => email, "password" => password }) do
+    user = Repo.get_by(User, email: email)
+
+    cond do
+      user && checkpw(password, user.password_hash) ->
+        { :ok, user }
+      user                                            ->
+        { :error, :wrong_password }
+      true                                            -> 
+        dummy_checkpw()
+        { :error, :not_found}
+    end
+    
   end
 
   defp hash_password(changeset) do

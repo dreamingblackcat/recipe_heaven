@@ -4,7 +4,6 @@ defmodule RecipeHeavenWeb.UserController do
 
   def show(conn, %{ "id" => id }) do
     user = Repo.get!(User, id)
-    conn
-    |> render "show.html", user: user
+    render conn, "show.html", user: user
   end
 end
