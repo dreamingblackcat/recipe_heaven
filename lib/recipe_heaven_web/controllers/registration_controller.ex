@@ -1,6 +1,7 @@
 defmodule RecipeHeavenWeb.RegistrationController do
   use RecipeHeavenWeb, :controller
   alias RecipeHeaven.{User, Repo}
+  alias RecipeHeaven.Auth
 
   def new(conn, _params) do
     changeset = User.registration_changeset(%User{}, %{})
@@ -13,7 +14,8 @@ defmodule RecipeHeavenWeb.RegistrationController do
     case Repo.insert(changeset) do
       {:ok, user}         ->
         conn
-        |> put_flash(:info, "User with name #{user.name} successfully registered")
+        |> Auth.Guardian.Plug.sign_in(user)
+        |> put_flash(:info, "Hi! #{user.name}, you have successfully registered an account")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} -> 
         conn
