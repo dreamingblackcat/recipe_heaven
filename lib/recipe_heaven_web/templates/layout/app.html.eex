@@ -14,26 +14,48 @@
   <body>
     <div class="container">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-	    <%= if logged_in?(@conn) do %>
-              <li><%= current_user(@conn).email %></li>
-              <li><%= link "Logout", to: session_path(@conn, :delete, current_user(@conn).id), method: :delete %></li>
-            <% else %>
-              <li><%= link "Register",    to: registration_path(@conn, :new) %></li>
-              <li><%= link "Login", to: session_path(@conn, :new) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">RecipeHeaven</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a class="nav-link" href="http://www.phoenixframework.org/docs">Phoenix Docs</a></li>
+              <%= if logged_in?(@conn) do %>
+                <li class="nav-item">
+                  <%= current_user(@conn).email %>
+                </li>
+                <li class="nav-item">
+                  <%= link "Logout", to: session_path(@conn, :delete, current_user(@conn).id), class: "nav-link", method: :delete %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link "Register", to: registration_path(@conn, :new), class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link "Login", to: session_path(@conn, :new), class: "nav-link" %>
+               </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <%
+info = get_flash(@conn, :info)
+error = get_flash(@conn, :error)
+      %>
+      <%= if info do %>
+	<div class="alert alert-info" role="alert"><%= info %></div>
+      <% end %>
+
+      <%= if error do %>
+	<p class="alert alert-danger" role="alert"><%= error %></p>
+      <% end %>
 
       <main role="main">
-        <%= render @view_module, @view_template, assigns %>
+      <%= render @view_module, @view_template, assigns %>
       </main>
 
     </div> <!-- /container -->
