@@ -3,6 +3,8 @@ defmodule RecipeHeavenWeb.SessionController do
   alias RecipeHeaven.User
   alias RecipeHeaven.Auth
 
+  plug :redirect_if_signed_in,[] when action in [:new]
+
   def new(conn, _params) do
     render(conn, "new.html")
   end
@@ -27,5 +29,11 @@ defmodule RecipeHeavenWeb.SessionController do
     |> Auth.Guardian.Plug.sign_out()
     |> put_flash(:info, "You're singed out now!")
     |> redirect(to: "/signin") 
+  end
+
+  defp redirect_if_signed_in(conn, _) do
+    conn
+    |> put_flash(:error, "You're already signed in")
+    |> redirect(to: "/")
   end
 end

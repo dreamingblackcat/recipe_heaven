@@ -27,7 +27,7 @@
                   <span class="text-info"><%= current_user(@conn).email %></span>
                 </li>
                 <li class="nav-item">
-                  <%= link "Logout", to: session_path(@conn, :delete, current_user(@conn).id), class: "nav-link", method: :delete %>
+                  <%= link "Logout", to: session_path(@conn, :delete), class: "nav-link", method: :delete %>
                 </li>
               <% else %>
                 <li class="nav-item">
@@ -42,8 +42,8 @@
         </nav>
       </header>
       <%
-info = get_flash(@conn, :info)
-error = get_flash(@conn, :error)
+        info = get_flash(@conn, :info)
+        error = get_flash(@conn, :error)
       %>
       <%= if info do %>
 	<div class="alert alert-info" role="alert"><%= info %></div>
