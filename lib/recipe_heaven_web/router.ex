@@ -10,11 +10,18 @@ defmodule RecipeHeavenWeb.Router do
   end
 
   pipeline :browser_auth do
-    plug :fetch_session
     plug Guardian.Plug.Pipeline, module: RecipeHeaven.Auth.Guardian,
       error_handler: RecipeHeaven.Auth.AuthErrorHandler
     plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
+  end
+
+  pipeline :no_login_user do
+    plug Guardian.Plug.Pipeline, module: RecipeHeaven.Auth.Guardian,
+      error_handler: RecipeHeaven.Auth.AuthErrorHandler
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource, allow_blank: true
+    plug Guardian.Plug.EnsureNotAuthenticated
   end
 
   pipeline :api do
@@ -25,18 +32,24 @@ defmodule RecipeHeavenWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    
-    get "/signup", RegistrationController, :new
-    post "/signup", RegistrationController, :create, as: :registration
 
-    scope "/users" do
-      pipe_through :browser_auth # Use the default browser stack
-      resources "/", UserController, only: [:show]
+    scope "/" do 
+      pipe_through :no_login_user # Use the default browser stack
+
+      get "/signup", RegistrationController, :new
+      post "/signup", RegistrationController, :create, as: :registration
+      get "/signin", SessionController, :new 
+      post "/signin", SessionController, :create
     end
 
-    get "/signin", SessionController, :new 
-    post "/signin", SessionController, :create
-    delete "/signout/:id", SessionController, :delete
+    scope "/users" do
+      pipe_through :browser_auth
+
+      resources "/", UserController, only: [:show]
+
+      delete "/signout/:id", SessionController, :delete
+    end
+
   end
 
   # Other scopes may use custom stacks.
