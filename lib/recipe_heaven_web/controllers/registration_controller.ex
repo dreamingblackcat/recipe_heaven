@@ -23,4 +23,9 @@ defmodule RecipeHeavenWeb.RegistrationController do
         |> render("new.html", changeset: changeset)
     end 
   end
+
+  def show(conn, %{ "id" => id }) do
+    user = Repo.get!(User, id)
+    render conn, "show.html", user: user
+  end
 end

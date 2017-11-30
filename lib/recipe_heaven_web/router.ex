@@ -50,6 +50,12 @@ defmodule RecipeHeavenWeb.Router do
       delete "/signout/:id", SessionController, :delete
     end
 
+    scope "/recipes" do
+      pipe_through :browser_auth
+
+      resources "/", RecipeController
+    end
+
   end
 
   # Other scopes may use custom stacks.

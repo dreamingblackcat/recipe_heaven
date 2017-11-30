@@ -10,6 +10,7 @@ defmodule RecipeHeaven.User do
     field :name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many :recipes, RecipeHeaven.Recipe
 
     timestamps()
   end

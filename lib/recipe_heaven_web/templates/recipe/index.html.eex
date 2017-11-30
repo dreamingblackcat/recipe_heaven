@@ -1,0 +1,20 @@
+<table class="table table-stripe">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Total Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for recipe <- @recipes do %>
+      <tr>
+        <th scope="row"><%= recipe.id %></th>
+        <td><%= link(recipe.name, to: recipe_path(@conn, :show, recipe.id)) %></td>
+        <td><%= recipe.description %></td>
+        <td><%= recipe.prep_time + recipe.cooking_time %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

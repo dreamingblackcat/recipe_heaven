@@ -1,0 +1,68 @@
+<div class="container">
+  <%= form_for @changeset, recipe_path(@conn, :create), fn f -> %>
+  <div class="row">
+    <div class="col-md-6">
+      <br class="clearboth" />
+      <h3 style="margin-bottom: 25px; text-align: center;">Create Your Recipe</h3>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter your recipe name</label>
+        <%= text_input f, :name, placeholder: "eg. Omellete Rice", class: "form-control" %>
+        <div class="text-danger">
+          <%= error_tag f, :name %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter a breif description of your recipe</label>
+        <%= textarea f, :description, placeholder: "eg. A tasty ried and rolled egg", class: "form-control", rows: 7 %>
+        <div class="text-danger">
+          <%= error_tag f, :description %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter the approximate time needed to prepare necessary ingredients(in minutes)</label>
+        <%= number_input f, :prep_time, class: "form-control" %>
+        <span> Minutes </span>
+        <div class="text-danger">
+          <%= error_tag f, :prep_time %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter the approximate time needed to cook your recipe after preparing ingredients(in minutes)</label>
+        <%= number_input f, :cooking_time, class: "form-control" %>
+        <span> Minutes </span>
+        <div class="text-danger">
+          <%= error_tag f, :cooking_time %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter how many servings does your recipe accounts for</label>
+        <%= number_input f, :servings, class: "form-control" %>
+        <span> Servings </span>
+        <div class="text-danger">
+          <%= error_tag f, :servings %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <br class="clearboth" />
+      <br class="clearboth" />
+      <br class="clearboth" />
+      <div class="form-group">
+        <label for="name" class="control-label">Enter ingredients for your recipe in step-by-step-manner</label>
+        <%= textarea f, :ingredients, placeholder: "", class: "form-control", rows: 7 %>
+        <div class="text-danger">
+          <%= error_tag f, :ingredients %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Enter directions for cooking your recipe in step-by-step-manner</label>
+        <%= textarea f, :directions, placeholder: "", class: "form-control", rows: 7 %>
+        <div class="text-danger">
+          <%= error_tag f, :directions %>
+        </div>
+      </div>
+      <%= submit "Create Recipe", class: "btn btn-primary pull-right" %>
+    </div>
+  </div>
+  <% end %>
+</div>

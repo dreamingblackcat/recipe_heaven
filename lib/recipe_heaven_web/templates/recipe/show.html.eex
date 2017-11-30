@@ -1,0 +1,27 @@
+<h1>  </h1>
+
+<div class="jumbotron">
+  <h1 class="display-3"><%= @recipe.name %></h1>
+  <p class="lead"><%= @recipe.description %></p>
+  <hr class="my-4">
+  <div class="row">
+    <div class="col-md-4">
+      Preparation Time: <%= @recipe.prep_time %> minutes
+    </div>
+    <div class="col-md-4">
+      Cooking Time: <%= @recipe.prep_time %> minutes
+    </div>
+    <div class="col-md-4">
+      Total Time: <%= @recipe.prep_time %> minutes
+    </div>
+  </div>
+  <hr class="my-4">
+  <div class="row">
+    <div class="col-md-6">
+      <blockquote class="lead"><%= @recipe.ingredients %></blockquote>
+    </div>
+    <div class="col-md-6">
+      <p class="lead"><%= @recipe.directions %></p>
+    </div>
+  </div>
+</div>

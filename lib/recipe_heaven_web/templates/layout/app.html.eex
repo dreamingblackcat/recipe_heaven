@@ -27,6 +27,12 @@
                   <span class="text-info"><%= current_user(@conn).email %></span>
                 </li>
                 <li class="nav-item">
+                  <%= link "Your Recipes", to: recipe_path(@conn, :index), class: "nav-link" %>
+               </li>
+                <li class="nav-item">
+                  <%= link "Create A Recipe", to: recipe_path(@conn, :new), class: "nav-link" %>
+               </li>
+                <li class="nav-item">
                   <%= link "Logout", to: session_path(@conn, :delete, current_user(@conn).id), class: "nav-link", method: :delete %>
                 </li>
               <% else %>
