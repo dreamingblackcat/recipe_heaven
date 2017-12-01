@@ -45,6 +45,7 @@ defmodule RecipeHeavenWeb do
       import RecipeHeavenWeb.Router.Helpers
       import RecipeHeavenWeb.ErrorHelpers
       import RecipeHeavenWeb.Gettext
+      import RecipeHeavenWeb.InputHelpers
     end
   end
 

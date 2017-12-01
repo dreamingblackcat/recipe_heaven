@@ -18,10 +18,20 @@
   <hr class="my-4">
   <div class="row">
     <div class="col-md-6">
-      <blockquote class="lead"><%= @recipe.ingredients %></blockquote>
+      <h4>Ingredients</h4>
+      <ul class="list-group">
+      <%= for ingredient <- @recipe.ingredients do %>
+        <li class="list-group-item list-group-item-success"><%= ingredient %></li>
+      <% end %>
+      </ul>
     </div>
     <div class="col-md-6">
-      <p class="lead"><%= @recipe.directions %></p>
+      <h4>Directions</h4>
+      <ul class="list-group">
+      <%= for direction <- @recipe.directions do %>
+        <li class="list-group-item list-group-item-info"><%= direction %></li>
+      <% end %>
+      </ul>
     </div>
   </div>
 </div>

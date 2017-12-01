@@ -6,13 +6,13 @@ defmodule RecipeHeaven.Recipe do
 
   schema "recipes" do
     field :cooking_time, :integer
-    field :description, :string
-    field :directions, :string
-    field :ingredients, :string
-    field :name, :string
-    field :prep_time, :integer
-    field :servings, :integer
-    belongs_to :user, RecipeHeaven.User
+    field :description,  :string
+    field :directions,   { :array, :string }
+    field :ingredients,  { :array, :string }
+    field :name,         :string
+    field :prep_time,    :integer
+    field :servings,     :integer
+    belongs_to :user,    RecipeHeaven.User
 
     timestamps()
   end

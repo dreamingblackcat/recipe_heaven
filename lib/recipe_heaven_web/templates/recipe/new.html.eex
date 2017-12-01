@@ -49,14 +49,16 @@
       <br class="clearboth" />
       <div class="form-group">
         <label for="name" class="control-label">Enter ingredients for your recipe in step-by-step-manner</label>
-        <%= textarea f, :ingredients, placeholder: "", class: "form-control", rows: 7 %>
+        <%= array_input f, :ingredients %>
+	<%= array_add_button f, :ingredients %>
         <div class="text-danger">
           <%= error_tag f, :ingredients %>
         </div>
       </div>
       <div class="form-group">
         <label for="name" class="control-label">Enter directions for cooking your recipe in step-by-step-manner</label>
-        <%= textarea f, :directions, placeholder: "", class: "form-control", rows: 7 %>
+        <%= array_input f, :directions %>
+	<%= array_add_button f, :directions %>
         <div class="text-danger">
           <%= error_tag f, :directions %>
         </div>
